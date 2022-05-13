@@ -1,5 +1,6 @@
 
 from ast import Return
+from getopt import error
 import random
 HANGMAN_PICS = ['''
   +---+
@@ -60,3 +61,4 @@ def proverkaVvoda(bukEst):
 def playAgain():
     #Эта функция возращает True, если игрок хочет сыграть заново, в противном False
     print('Хотите сыграть ещё раз? (да или нет')
+    
