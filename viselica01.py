@@ -133,18 +133,19 @@ def vyborS():
         else:
             return us
 
-def delV(uroventS):
-    if uroventS == 'С':
+def delV(vybS,hangP):
+    if vybS == 'С':
         del HANGMAN_PICS[10]
         del HANGMAN_PICS[9]
-    elif uroventS == 'Т':
+    elif vybS == 'Т':
         del HANGMAN_PICS[10]
         del HANGMAN_PICS[9]
         del HANGMAN_PICS[8]
         del HANGMAN_PICS[7]
+hm = HANGMAN_PICS
 
 bs = vyborS()
-delV(bs)
+delV(bs,hm)
 
 errorB = ''
 yesB = ''
@@ -169,7 +170,7 @@ while True:
                 break
 
         if vseBukvy:
-            displayBoard(errorB,yesB,sicretS)
+            displayBoard(errorB,yesB,sicretS,hm)
             print('Поздравляю.Вы отгодали слово за '+str(len(yesB+errorB))+' количество ходов')
             gameOver = True
     else:
