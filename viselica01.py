@@ -59,12 +59,16 @@ HANGMAN_PICS = ['''
      ===''']
 
      
-words = 'аист акула бабуин баран барсук бобр бык верблюд волк воробей ворон выдра голубь гусь жаба зебра змея индюк кит кобра коза козел койот корова кошка кролик крыса курица лама ласка лебедь лев лиса лосось лось лягушка медведь моллюск моль мул муравей мышь норка носорог обезьяна овца окунь олень орел осел панда паук питон попугай пума семга скунс собака сова тигр тритон тюлень утка форель хорек черепаха ястреб ящерица'.split()
+words = { 'животные':'аист акула бабуин баран барсук бобр бык верблюд волк воробей ворон выдра голубь гусь жаба зебра змея индюк кит кобра коза козел койот корова кошка кролик крыса курица лама лебедь лев лиса лосось лось лягушка медведь моллюск моль мул муравей мышь норка носорог обезьяна овца окунь олень орел осел панда паук питон попугай пума скунс собака сова тигр тюлень утка хорек черепаха ястреб ящерица'.split(),
+          'обьекты':' фонарь ноутбук машина гантеля круг овал квадрат линолиум '.split(),
+          'еда':'гамбургер шаурма салат опельсин'.split()}
 
 def getRandomWord(wordList):
     # Эта функция возвращает случайную строку из переданного списка.
-    wordIndex = random.randint(0, len(wordList)-1)
-    return wordList[wordIndex]
+    worlkey = random.choice(list(wordList.keys()))
+
+    wordIndex = random.randint(0,len(wordList[worlkey])-1)
+    return [wordList[worlkey][wordIndex],worlkey]
 
 def displayBoard(missedLetters, correctLetters, secretWord):
     print(HANGMAN_PICS[len(missedLetters)])
@@ -130,7 +134,6 @@ def vyborS():
             return us
 
 def delV(uroventS):
-    uroventS  = vyborS()
     if uroventS == 'С':
         del HANGMAN_PICS[10]
         del HANGMAN_PICS[9]
@@ -145,10 +148,13 @@ delV(bs)
 
 errorB = ''
 yesB = ''
-sicretS = getRandomWord(words)
+sicretS,keyS = getRandomWord(words)
 gameOver = False
 
 while True:
+    print(keyS)
+    if keyS == "Л":
+        print('категории:'+keyS)
     displayBoard(errorB,yesB,sicretS)
 
     bukva = getGuess(errorB+yesB)
@@ -180,7 +186,7 @@ while True:
 
             errorB = ''
             yesB = ''
-            sicretS = getRandomWord(words)
+            sicretS,keyS = getRandomWord(words)
             gameOver = False
         else:
             break
