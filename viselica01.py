@@ -1,7 +1,7 @@
 #viselica01
 import random
-from traceback import print_tb
-HANGMAN_PICS = ['''
+def sozV():
+    HANGMAN_PICS = ['''
   +---+
       |
       |
@@ -57,11 +57,11 @@ HANGMAN_PICS = ['''
 [/|\] |
  / \  |
      ===''']
-
+    return HANGMAN_PICS
      
 words = { 'животные':'аист акула бабуин баран барсук бобр бык верблюд волк воробей ворон выдра голубь гусь жаба зебра змея индюк кит кобра коза козел койот корова кошка кролик крыса курица лама лебедь лев лиса лосось лось лягушка медведь моллюск моль мул муравей мышь норка носорог обезьяна овца окунь олень орел осел панда паук питон попугай пума скунс собака сова тигр тюлень утка хорек черепаха ястреб ящерица'.split(),
-          'обьекты':' фонарь ноутбук машина гантеля круг овал квадрат линолиум '.split(),
-          'еда':'гамбургер шаурма салат опельсин'.split()}
+          'обьекты':' фонарь ноутбук машина гантеля круг овал квадрат линолиум пистолет кактус шина самосвал телефон'.split(),
+          'еда':'гамбургер шаурма салат йогурт ананас персик шашлык капуста манго огурец салат'.split()}
 
 def getRandomWord(wordList):
     # Эта функция возвращает случайную строку из переданного списка.
@@ -70,8 +70,8 @@ def getRandomWord(wordList):
     wordIndex = random.randint(0,len(wordList[worlkey])-1)
     return [wordList[worlkey][wordIndex],worlkey]
 
-def displayBoard(missedLetters, correctLetters, secretWord):
-    print(HANGMAN_PICS[len(missedLetters)])
+def displayBoard(missedLetters, correctLetters, secretWord,hangP):
+    print(hangP[len(missedLetters)])
     print()
 
     print('Ошибочные буквы:', end=' ')
@@ -135,28 +135,30 @@ def vyborS():
 
 def delV(vybS,hangP):
     if vybS == 'С':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
+        del hangP[10]
+        del hangP[9]
     elif vybS == 'Т':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
-        del HANGMAN_PICS[8]
-        del HANGMAN_PICS[7]
-hm = HANGMAN_PICS
+        del hangP[10]
+        del hangP[9]
+        del hangP[8]
+        del hangP[7]
 
-bs = vyborS()
-delV(bs,hm)
-
+dV = True
 errorB = ''
 yesB = ''
 sicretS,keyS = getRandomWord(words)
 gameOver = False
 
 while True:
-    print(keyS)
-    if keyS == "Л":
+    if dV:
+        hm = sozV()
+        bS = vyborS()
+        delV(bS,hm)
+        dV = False
+
+    if bS == "Л":
         print('категории:'+keyS)
-    displayBoard(errorB,yesB,sicretS)
+    displayBoard(errorB,yesB,sicretS,hm)
 
     bukva = getGuess(errorB+yesB)
 
@@ -175,16 +177,14 @@ while True:
             gameOver = True
     else:
         errorB = errorB + bukva
-        if len(errorB) == len(HANGMAN_PICS)-1:
-            displayBoard(errorB,yesB,sicretS)
+        if len(errorB) == len(hm)-1:
+            displayBoard(errorB,yesB,sicretS,hm)
             print('вы проиграли.Секретное слово: '+sicretS)
             gameOver = True
 
     if gameOver:
         if playAgain():
-            bs = vyborS()
-            delV(bs)
-
+            dV = True
             errorB = ''
             yesB = ''
             sicretS,keyS = getRandomWord(words)
