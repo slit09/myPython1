@@ -63,9 +63,16 @@ words = { 'животные':'аист акула бабуин баран бар
           'обьекты':' фонарь ноутбук машина гантеля круг овал квадрат линолиум пистолет кактус шина самосвал телефон'.split(),
           'еда':'гамбургер шаурма салат йогурт ананас персик шашлык капуста манго огурец салат'.split()}
 
-def getRandomWord(wordList):
+def getRandomWord(wordList,yS):
     # Эта функция возвращает случайную строку из переданного списка.
-    worlkey = random.choice(list(wordList.keys()))
+    if yS == 'Л':
+        for i in range(len(list(wordList.keys()))):
+            print('Введите '+str(i)+' для '+list(wordList.keys())[i])
+        vybK = input()
+        vybK = int(vybK)
+        worlkey = list(wordList.keys())[vybK]
+    else:
+        worlkey = random.choice(list(wordList.keys()))
 
     wordIndex = random.randint(0,len(wordList[worlkey])-1)
     return [wordList[worlkey][wordIndex],worlkey]
@@ -146,14 +153,14 @@ def delV(vybS,hangP):
 dV = True
 errorB = ''
 yesB = ''
-sicretS,keyS = getRandomWord(words)
 gameOver = False
 
 while True:
     if dV:
-        hm = sozV()
+        hm = sozV()                                
         bS = vyborS()
         delV(bS,hm)
+        sicretS,keyS = getRandomWord(words,bS)
         dV = False
 
     if bS == "Л":
@@ -187,7 +194,7 @@ while True:
             dV = True
             errorB = ''
             yesB = ''
-            sicretS,keyS = getRandomWord(words)
+            sicretS,keyS = getRandomWord(words,bS)
             gameOver = False
         else:
             break
