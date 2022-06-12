@@ -1,4 +1,3 @@
-
 #игра наперки
 import random, time
 
@@ -39,7 +38,7 @@ def myGames():
         print('''лукаво улыбнулся"вы проиграли"ведущий''')
 myPred()
 doneGames = 'да'
-while doneGames == 'да' or doneGames == 'не надо дядя':
+while doneGames == 'да' or doneGames == 'не':
     myIst()
     myGames()
     print('хотите сыграть еще раз?')
