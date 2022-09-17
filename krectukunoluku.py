@@ -35,8 +35,14 @@ def whoGoesfirs():
     else:
         return 'микрочелл' 
 
+def golginwey(board,letter,move):
+    board[letter] = move
 #----------------------------------------------
 #основное тело программы
 #----------------------------------------------
-
-print(whoGoesfirs())
+board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+displayBoard(board)
+board[1] = 'O'
+board[5] = 'X'
+board[9] = 'O'
+displayBoard(board)
