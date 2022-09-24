@@ -84,13 +84,13 @@ board = [' ']*10
 ml = [1,3,7,9]
 displayBoard(board)
 hod = cholrasrtMoveFRomlist(board,ml)
-#
+makeMove(board,'O',hod)
 displayBoard(board)
 
 board[1] = 'X'
 board[7] = 'X'
 board[9] = 'X'
 hod = cholrasrtMoveFRomlist(board,ml)
-#
+makeMove(board,'O',hod)
 displayBoard(board)
 
