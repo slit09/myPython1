@@ -1,0 +1,15 @@
+a=input("Введите числа через пробел: ")
+ 
+mult=1
+for num in a.split(' '):
+    if int(num)!=0:
+        mult*=int(num)
+ 
+print(mult)
+
+w = 1
+for i in range(6):
+    q = int(input())
+    if q != 0:
+        w *= (q)
+print(w)
