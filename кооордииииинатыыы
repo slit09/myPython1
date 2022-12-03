@@ -1,0 +1,82 @@
+import random
+import math
+
+def newboard():
+    board = []
+    for x in range(60):
+        board.append([])
+        for y in range(15):
+            if random.randint(0,1) == 0:
+                board[x].append('~')
+            else:
+                board[x].append('`')
+    return board
+
+def zactavka(board):
+    strOne = '   '
+    for i in range(1,6):
+        strOne += (' '*9) + str(i)
+
+    print(strOne)
+    print('    '+('0123456789'*6))
+    print()
+    
+    for row in range(15):
+        if row<10:
+            space = ' '
+        else:
+            space = ''
+
+        boardStr = ''
+        for colum in range(60):
+            boardStr += board[colum][row]
+        
+    
+        print('%s%s %s %s' %(space,row,boardStr,row))
+
+    print()
+    print('    '+('0123456789'*6))
+    print(strOne)
+
+
+def getRandomChes(ches):
+    cheslist = []
+    while len(cheslist)<=ches:
+        newChes = [random.randint(0,59),random.randint(0,14)]
+        if newChes not in cheslist:
+            cheslist.append(newChes)
+        return cheslist
+
+def vopros(tekstBOPROS):
+    print(tekstBOPROS)
+    while True:
+        otvet = input().lower()
+        if (otvet == 'да') or (otvet == 'д') or (otvet == 'yes') or (otvet == 'y'):
+            return True
+        elif (otvet == 'нет') or (otvet == 'н') or (otvet == 'no') or (otvet == 'n'):
+            return False
+        else:
+            print('''Я вас не понял !Введите ответ еще раз .''')
+
+     
+
+def IsDSboard(x,y):
+    return x >= 0 and x <= 59 and y >= 0 and y <= 14
+
+def makeMove(board,cheslist,x,y):
+    minimalDist = 100
+    for C_x,C_y in cheslist:
+        distanwuz = math.sqrt((C_x-x)*(C_x-x)+(C_y-y)*(C_y-y))
+        if distanwuz<minimalDist:
+            minimalDist=distanwuz
+
+
+
+
+#линии уйдите (_ОСНОВНОЕ ТЕЛО ПРОГРАММЫ_)
+while True:
+    a = int(input('Введите первую координату:     '))
+    b = int(input('Введите вторую координату:     '))
+    print(IsDSboard(a,b))
+    if vopros('Вы хотите прервать координаты?'):
+        break
