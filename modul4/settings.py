@@ -22,4 +22,3 @@ class Setting:
         #fleet_direction = 1 - движение вправо
         self.fleet_direction = 1
 
-        self.wert_speed = 0.3

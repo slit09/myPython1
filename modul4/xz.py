@@ -7,10 +7,15 @@ from settings import Setting
 from ship import Ship
 from bullet import Bullet
 from alien import Aliens
-from wert import Wert
+
+
+
+
 
 class AlienInvasion:
 
+
+#Игра------------------______________---------------_______________---------------
     def __init__(self):
         pygame.init()
         self.settings = Setting()
@@ -41,11 +46,10 @@ class AlienInvasion:
                 self.ship.update()
                 self._update_bullets()
                 self._update_aliens()
-                self._update_werts()
             self._update_screen()
-            
-           
 
+
+#Пришельцы-----------------________________-------------------_________________
     def _create_flote(self):
         alien = Aliens(self)
         alien_width,alien_height = alien.rect.size
@@ -58,8 +62,6 @@ class AlienInvasion:
             for alien_number in range(number_aliens_x):
                 self._create_aliens(alien_number,row_number)
 
-
-
     def _create_aliens(self,alien_number,row_number):
             alien = Aliens(self)
             alien_width,alien_height = alien.rect.size
@@ -68,16 +70,12 @@ class AlienInvasion:
             alien.rect.y = alien.rect.height+2*alien.rect.height*row_number
             self.aliens.add(alien)
 
-
-
     def _update_aliens(self):
         self._check_flotes_edge()
         self.aliens.update()
         if pygame.sprite.spritecollideany(self.ship,self.aliens):
             self._ship_hit()
         self._check_aliens_bottom()
-
-
 
     def _check_aliens_bottom(self):
         screen_rect = self.screen.get_rect()
@@ -86,9 +84,7 @@ class AlienInvasion:
                 self._ship_hit()
                 break
 
-#--------------------------------------------------------------------------
-#Game Opehion_______-------_______--------________---------_________-------_________-----------_______----
-#---------------------------------------------------------------------------------------------------------
+
     def _ship_hit(self):
         if self.stats.ships_lifes > 0:
             self.stats.ships_lifes -= 1
@@ -101,25 +97,17 @@ class AlienInvasion:
             self.stats.game_active = False
 
 
-#-----------------------------------------------------------------------------------------------------------
-#Flot_____----------________--------_______--------________--------________---------_______-----------______
-#------------------------------------------------------------------------------------------------------------
     def _check_flotes_edge(self):
         for alien in self.aliens.sprites():
             if alien.check_edges():
                 self._check_fleet_direction()
                 break
 
-
-
     def _check_fleet_direction(self):
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
 
-#
-#
-#
 
 
     def _update_bullets(self):
@@ -129,15 +117,11 @@ class AlienInvasion:
                  self.bullets.remove(bullet)   
         self._check_bullet_alien_collision()
 
-
-
     def _check_bullet_alien_collision(self):
         collision = pygame.sprite.groupcollide(self.bullets,self.aliens,True,True)
         if not self.aliens:
             self.bullets.empty()
             self._create_flote()
-
-
 
     def _check_event(self):
         for event in pygame.event.get():
@@ -149,24 +133,31 @@ class AlienInvasion:
                     elif event.key == pygame.K_LEFT:
                         self.ship.moving_left = True
 
-
                     elif event.key == pygame.K_q:
                         sys.exit()
                     elif event.key == pygame.K_SPACE:
                         self._fire_bullets()
                     
-                             
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_RIGHT:
                         self.ship.moving_right = False
                     elif event.key == pygame.K_LEFT:
-                        self.ship.moving_left = False  
-              
+                        self.ship.moving_left = False
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    self._check_play_buttom(mouse_pos)
+
+    def _check_play_buttom(self,mouse_pos):
+        if self.play_buttom.rect.collidepoint(mouse_pos):
+
+            self.stats.game_active = True
+
+
     def _fire_bullets(self):
         if len(self.bullets) < self.settings.bullets_allowed:
             new_ballet = Bullet(self)
             self.bullets.add(new_ballet)
-
 
     def _update_screen(self):
             
